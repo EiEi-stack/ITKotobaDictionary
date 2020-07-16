@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<group>
+    <item
+        android:id="@+id/nav_search"
+        android:icon="@drawable/ic_search_gray_24dp"
+        android:title="@string/search"/>
+    <item
+        android:id="@+id/nav_recently_search"
+        android:icon="@drawable/ic_recent_searched_for_gray_24dp"
+        android:title="@string/recently_search"/>
+    <item
+        android:id="@+id/nav_favourite"
+        android:icon="@drawable/ic_favorite_border_gray_24dp"
+        android:title="@string/favourite"/>
+
+</group>
+    <item android:title="@string/learning">
+        <menu>
+            <item
+                android:id="@+id/nav_learning"
+                android:icon="@drawable/ic_learn_word_gray_24dp"
+                android:title="@string/learning_words"/>
+
+        </menu>
+    </item>
+    <item android:title="@string/setting">
+        <menu>
+            <item
+                android:id="@+id/nav_setting_language"
+                android:icon="@drawable/ic_language_gray_24dp"
+                android:title="@string/language_setting"/>
+            <item
+                android:id="@+id/nav_setting_theme"
+                android:icon="@drawable/ic_color_lens_gray_24dp"
+                android:title="@string/theme_setting"/>
+
+        </menu>
+    </item>
+</menu>
