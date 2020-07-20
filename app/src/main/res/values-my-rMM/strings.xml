@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IT အဘိဓာန်</string>
+    <string name="welcome">ဂျပန်ဘာသာ IT ဝေါဟာရ</string>
+    <string name="this_is_navigation_drawer">ဂျပန်ဘာသာဖြင့် IT ဝေါဟာရလေ့လာစို့ ..</string>
+    <string name="search">ရှာဖွေ</string>
+    <string name="recently_search">မကြာသေးမီကရှာဖွေမှု</string>
+    <string name="favourite">အကြိုက်ဆုံး</string>
+    <string name="learning_words">စကားလုံးသင်ယူခြင်း</string>
+    <string name="language_setting">ဘာသာစကားချိန်ညှိခြင်း</string>
+    <string name="theme_setting">အရောင်ချိန်ညှိခြင်း</string>
+    <string name="learning">သင်ယူခြင်း</string>
+    <string name="setting">ချိန်ညှိခြင်း</string>
+    <string name="chooselanguage">ဘာသာစကားရွေးပါ</string>
+</resources>

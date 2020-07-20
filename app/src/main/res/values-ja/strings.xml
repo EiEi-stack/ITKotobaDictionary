@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IT辞書</string>
+    <string name="welcome">日本語のIT語彙</string>
+    <string name="this_is_navigation_drawer">ITことばを学ぼう</string>
+    <string name="search">探す</string>
+    <string name="recently_search">最近の検索</string>
+    <string name="favourite">気に入り</string>
+    <string name="learning_words">単語を学ぶ</string>
+    <string name="language_setting">言語設定</string>
+    <string name="theme_setting">テーマ設定</string>
+    <string name="learning">学習する</string>
+    <string name="setting">設定</string>
+    <string name="chooselanguage">言語を選択</string>
+
+</resources>
