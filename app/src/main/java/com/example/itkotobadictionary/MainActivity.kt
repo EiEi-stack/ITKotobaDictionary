@@ -2,18 +2,18 @@ package com.example.itkotobadictionary
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ArrayAdapter
-import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import java.util.*
 
@@ -40,31 +40,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
-
-        //load data to list view
-        val lvResult = findViewById<ListView>(R.id.lv_result)
-        val dataAccess: DatabaseAccess = DatabaseAccess.getInstance(this)!!
-        dataAccess.open()
-        val dictionaries = dataAccess.getDictionaries
-        val dicadapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dictionaries)
-        lvResult.adapter = dicadapter
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        var fragment: Fragment
         when (item.itemId) {
             R.id.nav_search -> {
-                this.startActivity(Intent(this, MainActivity::class.java))
-                return true
+                replaceFragmenty(
+                    fragment = SearchFragment(),
+                    allowStateLoss = true,
+                    containerViewId = R.id.subMainContent
+                )
+                setTitle(resources.getString(R.string.search))
             }
+
             R.id.nav_recently_search -> {
                 Toast.makeText(this, "Recently Searched clicked", Toast.LENGTH_SHORT).show()
+                setTitle(resources.getString(R.string.recently_search))
             }
             R.id.nav_favourite -> {
                 Toast.makeText(this, "Favourite clicked", Toast.LENGTH_SHORT).show()
+                setTitle(resources.getString(R.string.favourite))
             }
             R.id.nav_learning -> {
                 Toast.makeText(this, "Learning clicked", Toast.LENGTH_SHORT).show()
+                setTitle(resources.getString(R.string.learning))
             }
             R.id.nav_setting_language -> {
                 //language setting
@@ -87,12 +87,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 val mDialog = sBuilder.create()
                 mDialog.show()
+                setTitle(resources.getString(R.string.language_setting))
             }
             R.id.nav_setting_theme -> {
                 Toast.makeText(this, "Theme clicked", Toast.LENGTH_SHORT).show()
+
+                setTitle(resources.getString(R.string.theme_setting))
             }
         }
-//        drawerLayout.closeDrawer(GravityCompat.START)
+        drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 
