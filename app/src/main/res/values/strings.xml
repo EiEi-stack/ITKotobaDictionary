@@ -12,5 +12,6 @@
     <string name="learning">Learning</string>
     <string name="setting">Setting</string>
     <string name="chooselanguage">Choose Language</string>
+    <string name="search_hint">search hint</string>
 
 </resources>

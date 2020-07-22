@@ -30,16 +30,30 @@ class DatabaseAccess private constructor(context: Context) {
      *
      * @return a List of quotes
      */
-    val getDictionaries: List<String>
+    val getDictionaries: MutableList<DictionaryClass>
         get() {
-            val list: MutableList<String> = ArrayList()
-            val cursor = database!!.rawQuery("SELECT * FROM dictionary", null)
-            cursor.moveToFirst()
-            while (!cursor.isAfterLast) {
-                list.add(cursor.getString(2))
-                cursor.moveToNext()
+            val list: MutableList<DictionaryClass> = ArrayList()
+            val queryResult = database!!.rawQuery("SELECT * FROM dictionary", null)
+            if (queryResult.moveToFirst()) {
+                do {
+                    val dictionaryClass = DictionaryClass()
+                    dictionaryClass.name = queryResult.getString(queryResult.getColumnIndex(COL_NAME))
+                    dictionaryClass.hiragana = queryResult.getString(queryResult.getColumnIndex(
+                        COL_HIRAGANA))
+                    dictionaryClass.kanji = queryResult.getString(queryResult.getColumnIndex(
+                        COL_KANJI))
+                    dictionaryClass.katakana = queryResult.getString(queryResult.getColumnIndex(
+                        COL_KATAKANA))
+                    list.add(dictionaryClass)
+                }while(queryResult.moveToNext())
+                queryResult.close()
             }
-            cursor.close()
+//            cursor.moveToFirst()
+//            while (!cursor.isAfterLast) {
+//                list.add(cursor.getString(2))
+//                cursor.moveToNext()
+//            }
+
             return list
         }
 

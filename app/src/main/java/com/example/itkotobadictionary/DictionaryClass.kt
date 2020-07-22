@@ -1,6 +1,6 @@
 package com.example.itkotobadictionary
 
-class Dictionaries {
+class DictionaryClass {
     var id: Long = -1
     var name: String = "";
     var kanji: String = "";

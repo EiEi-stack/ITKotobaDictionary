@@ -12,5 +12,6 @@
     <string name="learning">学習する</string>
     <string name="setting">設定</string>
     <string name="chooselanguage">言語を選択</string>
+    <string name="search_hint">検索ヒント</string>
 
 </resources>
