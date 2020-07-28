@@ -1,24 +1,22 @@
 package com.example.itkotobadictionary
 
 import android.app.Activity
-import android.app.SearchManager
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
+import java.security.AccessControlContext
+import java.security.AccessController.getContext
 import java.util.*
 
 
@@ -29,8 +27,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var getDictionaries: MutableList<DictionaryClass>
     lateinit var dictionaryArrayAdapter: ArrayAdapter<*>
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         loadLocale() //load locale
+        loadTheme()// load theme
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         toolbar = findViewById(R.id.toolbar)
@@ -45,7 +44,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
     }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         var fragment: Fragment
         when (item.itemId) {
@@ -94,14 +92,58 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 setTitle(resources.getString(R.string.language_setting))
             }
             R.id.nav_setting_theme -> {
-                Toast.makeText(this, "Theme clicked", Toast.LENGTH_SHORT).show()
+                //theme setting
+                val listItems = arrayOf("Pink", "Green", "Red","Blue")
+                val sBuilder = AlertDialog.Builder(this@MainActivity)
+                sBuilder.setTitle(getString(R.string.chooseTheme))
+                sBuilder.setSingleChoiceItems(listItems, -1) { dialog, which ->
 
+                    if (which == 0) {
+                        setThemeColor("pink")
+                        recreate()
+                    } else if (which == 1) {
+                        setThemeColor("green")
+                        recreate()
+                    } else if (which == 2) {
+                        setThemeColor("red")
+                        recreate()
+                    }else if (which == 3) {
+                        setThemeColor("blue")
+                        recreate()
+                    }
+                    dialog.dismiss()
+                }
+                val mDialog = sBuilder.create()
+                mDialog.show()
                 setTitle(resources.getString(R.string.theme_setting))
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+    private fun setThemeColor(theme: String) {
+       if(theme =="green"){
+           setTheme(R.style.green)
+       }else if(theme =="blue"){
+           setTheme(R.style.blue)
+       }else if(theme =="pink"){
+           setTheme(R.style.pink)
+       }else if(theme =="red"){
+           setTheme(R.style.red)
+       }
+        val editor = getSharedPreferences("Theme", Context.MODE_PRIVATE).edit()
+        editor.putString("My_Theme", theme)
+        editor.apply()
+    }
+
+    private fun loadTheme() {
+        val sharePreferences = getSharedPreferences("Theme", Activity.MODE_PRIVATE)
+        val theme = sharePreferences.getString("My_Theme", "")
+        if (theme != null) {
+            setThemeColor(theme)
+        }
+    }
+
 
     private fun setLocate(Lang: String) {
         val locale = Locale(Lang)

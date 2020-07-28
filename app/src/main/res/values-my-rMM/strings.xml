@@ -12,5 +12,6 @@
     <string name="learning">သင်ယူခြင်း</string>
     <string name="setting">ချိန်ညှိခြင်း</string>
     <string name="chooselanguage">ဘာသာစကားရွေးပါ</string>
+    <string name="chooseTheme">အရောင်စကားရွေးပါ</string>
     <string name="search_hint">သဲလွန်စရှာဖွေသည်</string>
 </resources>

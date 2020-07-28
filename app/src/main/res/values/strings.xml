@@ -12,6 +12,10 @@
     <string name="learning">Learning</string>
     <string name="setting">Setting</string>
     <string name="chooselanguage">Choose Language</string>
+    <string name="chooseTheme">Choose Theme</string>
     <string name="search_hint">search hint</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
