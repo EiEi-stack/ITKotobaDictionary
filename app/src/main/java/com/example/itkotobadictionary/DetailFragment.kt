@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.ToggleButton
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -19,12 +20,18 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class DetailFragment : Fragment() {
+    lateinit var getItemName: String
+    lateinit var getItemId: String
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getItemName = arguments?.getString("ITEM_NAME").toString()
+        getItemId = arguments?.getString("ITEM_ID").toString()
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -37,12 +44,13 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_detail, container, false)
-        val getItemValue = arguments?.getString("ITEM_ID")
+
         val tv_detail = view.findViewById<TextView>(R.id.tv_detailText)
         val tv_detailHiragana = view.findViewById<TextView>(R.id.tv_detailHiragana)
         val tv_detailKatakana = view.findViewById<TextView>(R.id.tv_detailKantakana)
         val tv_detailKanji = view.findViewById<TextView>(R.id.tv_detailKanji)
-        tv_detail?.setText(getItemValue)
+        val toggleFavourite = view.findViewById<ToggleButton>(R.id.myToggleButton)
+        tv_detail?.setText(getItemName)
         var listData = DictionaryClass()
         var getHiragana = ""
         var getKatakana = ""
@@ -50,15 +58,40 @@ class DetailFragment : Fragment() {
         var getDicValue = getDictionaryList()
         for (i in 0 until getDicValue.size) {
             listData = getDicValue[i]
-            if (listData.name.contains(getItemValue.toString())) {
+            if (listData.name.contains(getItemName.toString())) {
                 getHiragana = listData.hiragana
                 getKatakana = listData.katakana
                 getKanji = listData.kanji
+                if (listData.favouriteStatus == 1) {
+                    toggleFavourite.background =
+                        resources.getDrawable(R.drawable.ic_star_black_24dp)
+                } else {
+                    toggleFavourite.background =
+                        resources.getDrawable(R.drawable.ic_star_border_black_24dp)
+                }
             }
         }
         tv_detailHiragana.setText(getHiragana)
-        tv_detailKatakana.setText("("+getKatakana+")")
+        tv_detailKatakana.setText("(" + getKatakana + ")")
         tv_detailKanji.setText(getKanji)
+
+        toggleFavourite.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            val getId = getItemId.toLongOrNull()
+            if (isChecked) {
+                toggleFavourite.background = resources.getDrawable(R.drawable.ic_star_black_24dp)
+                if (getId != null) {
+                    updateFavourite(getId, 1)
+                }
+            } else {
+                toggleFavourite.background =
+                    resources.getDrawable(R.drawable.ic_star_border_black_24dp)
+                if (getId != null) {
+                    updateFavourite(getId, 0)
+
+                }
+            }
+        }
 // Inflate the layout for this fragment
         return view
 
@@ -73,6 +106,18 @@ class DetailFragment : Fragment() {
         dataAccess.open()
         val dictionaries = dataAccess.getDictionaries
         return dictionaries
+    }
+
+    private fun updateFavourite(itemId: Long, isFavourite: Int) {
+        val dataAccess: DatabaseAccess = context?.applicationContext?.let {
+            DatabaseAccess.getInstance(
+                it
+            )
+        }!!
+        dataAccess.open()
+        dataAccess.updateFavourite(itemId, isFavourite)
+        Toast.makeText(context, "$itemId $isFavourite updated successfully", Toast.LENGTH_SHORT)
+            .show()
     }
 
     companion object {

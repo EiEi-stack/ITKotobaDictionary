@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
     }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         var fragment: Fragment
         when (item.itemId) {
@@ -61,7 +62,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 setTitle(resources.getString(R.string.recently_search))
             }
             R.id.nav_favourite -> {
-                Toast.makeText(this, "Favourite clicked", Toast.LENGTH_SHORT).show()
+                replaceFragmenty(
+                    fragment = FavouriteFragment(),
+                    allowStateLoss = true,
+                    containerViewId = R.id.subMainContent
+                )
                 setTitle(resources.getString(R.string.favourite))
             }
             R.id.nav_learning -> {
@@ -93,7 +98,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_setting_theme -> {
                 //theme setting
-                val listItems = arrayOf("Pink", "Green", "Red","Blue")
+                val listItems = arrayOf("Pink", "Green", "Red", "Blue")
                 val sBuilder = AlertDialog.Builder(this@MainActivity)
                 sBuilder.setTitle(getString(R.string.chooseTheme))
                 sBuilder.setSingleChoiceItems(listItems, -1) { dialog, which ->
@@ -107,7 +112,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     } else if (which == 2) {
                         setThemeColor("red")
                         recreate()
-                    }else if (which == 3) {
+                    } else if (which == 3) {
                         setThemeColor("blue")
                         recreate()
                     }
@@ -121,16 +126,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
     private fun setThemeColor(theme: String) {
-       if(theme =="green"){
-           setTheme(R.style.green)
-       }else if(theme =="blue"){
-           setTheme(R.style.blue)
-       }else if(theme =="pink"){
-           setTheme(R.style.pink)
-       }else if(theme =="red"){
-           setTheme(R.style.red)
-       }
+        if (theme == "green") {
+            setTheme(R.style.green)
+        } else if (theme == "blue") {
+            setTheme(R.style.blue)
+        } else if (theme == "pink") {
+            setTheme(R.style.pink)
+        } else if (theme == "red") {
+            setTheme(R.style.red)
+        }
         val editor = getSharedPreferences("Theme", Context.MODE_PRIVATE).edit()
         editor.putString("My_Theme", theme)
         editor.apply()

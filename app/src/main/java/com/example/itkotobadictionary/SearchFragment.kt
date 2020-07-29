@@ -61,7 +61,8 @@ class SearchFragment : Fragment() {
             val detailFragment =
                 DetailFragment() //the fragment you want to show
             val bundle = Bundle()
-            bundle.putString("ITEM_ID", clickeditem.toString())
+            bundle.putString("ITEM_NAME", clickeditem.toString())
+            bundle.putString("ITEM_ID", id.toString())
             detailFragment.arguments = bundle
             fragmentTransaction
                 ?.replace(

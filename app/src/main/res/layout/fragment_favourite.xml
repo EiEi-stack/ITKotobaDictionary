@@ -1,52 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical">
+
+<ListView
+    android:id="@+id/lv_favourite"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".fragments.FavoritesFragment">
+    android:scrollbars="vertical" />
 
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/top_note"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_gravity="center"
-            android:padding="18dp"
-            android:textStyle="bold"
-            android:textColor="@color/colorBlack"
-            android:text="VIEW YOUR FAVOURITE WORDS "/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorBackground"/>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/top_note">
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/my_favorites"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="6dp">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-    </FrameLayout>
-
-</RelativeLayout>
+</LinearLayout>
