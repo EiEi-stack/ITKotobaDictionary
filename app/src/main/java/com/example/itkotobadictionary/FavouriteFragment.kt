@@ -26,9 +26,7 @@ class FavouriteFragment : Fragment() {
 
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var dictionaryAdapter: ArrayAdapter<String?>
-    lateinit var lvResult: ListView
-    lateinit var getDictionaryList: MutableList<String?>
+    lateinit var mAdapter: CustomAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -43,32 +41,23 @@ class FavouriteFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_favourite, container, false)
+        val favRecyclerView = view.findViewById<RecyclerView>(R.id.lv_favourite)
+        val dictionaryClass = DictionaryClass()
+        favRecyclerView.layoutManager = LinearLayoutManager(context)
+        mAdapter = CustomAdapter(setDictionaryList())
+        favRecyclerView.adapter = mAdapter
 
-
-        val favouriteDicList: MutableList<DictionaryClass> = getFavouriteDictionaryList()
-        lvResult = view.findViewById<ListView>(R.id.lv_favourite)
-        getDictionaryList = setDictionaryList()
-        //set the listView
-        dictionaryAdapter =
-            context?.let {
-                ArrayAdapter(
-                    it,
-                    android.R.layout.simple_list_item_1,
-                    getDictionaryList
-                )
-            }!!
-        lvResult.adapter = dictionaryAdapter
         return view
     }
 
-    private fun setDictionaryList(): MutableList<String?> {
+    private fun setDictionaryList(): MutableList<DictionaryClass> {
         val dictionaryList = getFavouriteDictionaryList()
-        val showListView = mutableListOf<String?>()
+        val mfavouriteList =  mutableListOf<DictionaryClass>()
         for (i in 0 until dictionaryList.size) {
             val listData = dictionaryList[i]
-            showListView.add(i, listData.name)
+            mfavouriteList.add(listData)
         }
-        return showListView
+        return mfavouriteList
     }
 
 
@@ -102,8 +91,4 @@ class FavouriteFragment : Fragment() {
                 }
             }
     }
-}
-
-private operator fun RecyclerView.LayoutManager?.invoke(layoutManager: LinearLayoutManager) {
-
 }
