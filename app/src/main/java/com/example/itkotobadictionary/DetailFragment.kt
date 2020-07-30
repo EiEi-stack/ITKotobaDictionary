@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import android.widget.ToggleButton
 
 // TODO: Rename parameter arguments, choose names that match
@@ -116,8 +115,7 @@ class DetailFragment : Fragment() {
         }!!
         dataAccess.open()
         dataAccess.updateFavourite(itemId, isFavourite)
-        Toast.makeText(context, "$itemId $isFavourite updated successfully", Toast.LENGTH_SHORT)
-            .show()
+
     }
 
     companion object {

@@ -13,10 +13,14 @@ class CustomAdapter(private val dictionaryList: MutableList<DictionaryClass>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView
         val hiragana: TextView
+        val katakana: TextView
+        val kanji: TextView
 
         init {
             name = view.findViewById(R.id.tv_fav_name)
             hiragana = view.findViewById(R.id.tv_fav_hiragana)
+            katakana = view.findViewById(R.id.tv_fav_katakana)
+            kanji = view.findViewById(R.id.tv_fav_kanji)
         }
 
     }
@@ -35,5 +39,7 @@ class CustomAdapter(private val dictionaryList: MutableList<DictionaryClass>) :
         val dictionaryView = dictionaryList[position]
         holder.name.text = dictionaryView.name
         holder.hiragana.text = dictionaryView.hiragana
+        holder.katakana.text = "(" + dictionaryView.katakana + ")"
+        holder.kanji.text = dictionaryView.kanji
     }
 }

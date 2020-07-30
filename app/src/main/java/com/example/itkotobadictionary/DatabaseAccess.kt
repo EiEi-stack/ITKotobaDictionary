@@ -83,14 +83,14 @@ class DatabaseAccess private constructor(context: Context) {
                             COL_HIRAGANA
                         )
                     )
-                    dictionaryClass.kanji = queryResult.getString(
-                        queryResult.getColumnIndex(
-                            COL_KANJI
-                        )
-                    )
                     dictionaryClass.katakana = queryResult.getString(
                         queryResult.getColumnIndex(
                             COL_KATAKANA
+                        )
+                    )
+                    dictionaryClass.kanji = queryResult.getString(
+                        queryResult.getColumnIndex(
+                            COL_KANJI
                         )
                     )
                     dictionaryClass.favouriteStatus = queryResult.getInt(
@@ -118,7 +118,7 @@ class DatabaseAccess private constructor(context: Context) {
                         queryResult.getString(queryResult.getColumnIndex(COL_HIRAGANA))
                     kotoba.katakana =
                         queryResult.getString(queryResult.getColumnIndex(COL_KATAKANA))
-                    kotoba.kanji = queryResult.getString(queryResult.getColumnIndex(COL_KATAKANA))
+                    kotoba.kanji = queryResult.getString(queryResult.getColumnIndex(COL_KANJI))
                     kotoba.favouriteStatus = isFavourite
                     updateKotoba(kotoba)
 

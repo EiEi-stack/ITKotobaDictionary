@@ -52,7 +52,7 @@ class FavouriteFragment : Fragment() {
 
     private fun setDictionaryList(): MutableList<DictionaryClass> {
         val dictionaryList = getFavouriteDictionaryList()
-        val mfavouriteList =  mutableListOf<DictionaryClass>()
+        val mfavouriteList = mutableListOf<DictionaryClass>()
         for (i in 0 until dictionaryList.size) {
             val listData = dictionaryList[i]
             mfavouriteList.add(listData)
