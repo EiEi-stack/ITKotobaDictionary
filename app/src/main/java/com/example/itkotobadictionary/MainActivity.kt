@@ -70,7 +70,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 setTitle(resources.getString(R.string.favourite))
             }
             R.id.nav_learning -> {
-                Toast.makeText(this, "Learning clicked", Toast.LENGTH_SHORT).show()
+                replaceFragmenty(
+                    fragment = LearningFragment(),
+                    allowStateLoss = true,
+                    containerViewId = R.id.subMainContent
+                )
                 setTitle(resources.getString(R.string.learning))
             }
             R.id.nav_setting_language -> {

@@ -8,8 +8,8 @@ import android.provider.SearchRecentSuggestions
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.SearchView
 import android.widget.Toast
-import androidx.appcompat.widget.SearchView
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 
@@ -98,14 +98,12 @@ class SearchFragment : Fragment() {
         return dictionaries
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.nav_menu, menu)
-
+    override fun onPrepareOptionsMenu(menu: Menu) {
         val searchItem = menu?.findItem(R.id.nav_search)
         val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = searchItem?.actionView as SearchView
+
         searchView.isQueryRefinementEnabled = true
-        searchView.setIconifiedByDefault(false)
         searchView.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -115,10 +113,15 @@ class SearchFragment : Fragment() {
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
-
-                return true
+                searchView.setQuery("", false)
+                searchView.setIconifiedByDefault(true)
+                return false
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.nav_menu, menu)
     }
 
     private fun filter(newText: String?) {
