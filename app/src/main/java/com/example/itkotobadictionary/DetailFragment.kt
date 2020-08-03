@@ -20,7 +20,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class DetailFragment : Fragment() {
     lateinit var getItemName: String
-    lateinit var getItemId: String
+    var getItemId: String? = null
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -30,7 +30,7 @@ class DetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getItemName = arguments?.getString("ITEM_NAME").toString()
-        getItemId = arguments?.getString("ITEM_ID").toString()
+        getItemId = arguments?.getString("ITEM_ID")
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -76,7 +76,7 @@ class DetailFragment : Fragment() {
 
         toggleFavourite.setOnCheckedChangeListener { buttonView, isChecked ->
 
-            val getId = getItemId.toLongOrNull()
+            val getId = getItemId?.toLongOrNull()
             if (isChecked) {
                 toggleFavourite.background = resources.getDrawable(R.drawable.ic_star_black_24dp)
                 if (getId != null) {
@@ -114,7 +114,7 @@ class DetailFragment : Fragment() {
             )
         }!!
         dataAccess.open()
-        dataAccess.updateFavourite(itemId, isFavourite)
+        dataAccess.updateFavourite(itemId+1, isFavourite)
 
     }
 

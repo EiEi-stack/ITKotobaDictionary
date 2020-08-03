@@ -8,9 +8,7 @@ import android.provider.SearchRecentSuggestions
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.SearchView
-import android.widget.Toast
-import androidx.core.view.get
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 
 

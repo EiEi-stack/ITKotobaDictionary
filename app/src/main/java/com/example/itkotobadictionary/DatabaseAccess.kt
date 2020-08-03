@@ -76,6 +76,7 @@ class DatabaseAccess private constructor(context: Context) {
             if (queryResult.moveToFirst()) {
                 do {
                     val dictionaryClass = DictionaryClass()
+                    dictionaryClass.id = queryResult.getLong(queryResult.getColumnIndex(COL_ID))
                     dictionaryClass.name =
                         queryResult.getString(queryResult.getColumnIndex(COL_NAME))
                     dictionaryClass.hiragana = queryResult.getString(
@@ -112,7 +113,7 @@ class DatabaseAccess private constructor(context: Context) {
             if (queryResult.moveToFirst()) {
                 do {
                     val kotoba = DictionaryClass()
-                    kotoba.id = queryResult.getLong(queryResult.getColumnIndex(COL_ID))
+                    kotoba.id = itemId
                     kotoba.name = queryResult.getString(queryResult.getColumnIndex(COL_NAME))
                     kotoba.hiragana =
                         queryResult.getString(queryResult.getColumnIndex(COL_HIRAGANA))
