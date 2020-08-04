@@ -1,8 +1,6 @@
 package com.example.itkotobadictionary
 
 import android.content.SearchRecentSuggestionsProvider
-import android.database.Cursor
-import android.database.MergeCursor
 
 
 class MySuggestionProvider : SearchRecentSuggestionsProvider() {
@@ -11,7 +9,7 @@ class MySuggestionProvider : SearchRecentSuggestionsProvider() {
     }
 
     companion object {
-        const val AUTHORITY = "com.example.itkotobadictionary.MySuggestionProvider"
+        const val AUTHORITY = "com.example.MySuggestionProvider"
         const val MODE: Int = SearchRecentSuggestionsProvider.DATABASE_MODE_QUERIES
     }
 }

@@ -10,21 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <provider
-            android:authorities="com.example.itkotobadictionary.MySuggestionProvider"
-            android:name=".MySuggestionProvider"></provider>
+            android:name=".MySuggestionProvider"
+            android:authorities="com.example.itkotobadictionary.MySuggestionProvider"></provider>
+
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
         </activity>
         <activity android:name=".DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
     </application>

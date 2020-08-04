@@ -97,16 +97,15 @@ class SearchFragment : Fragment() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
-        val searchItem = menu?.findItem(R.id.nav_search)
         val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = searchItem?.actionView as SearchView
+        val searchView = activity?.findViewById<SearchView>(R.id.search_view)
 
-        searchView.isQueryRefinementEnabled = true
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
+        searchView?.isQueryRefinementEnabled = true
+        searchView?.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
-                filter(newText)
+                dictionaryAdapter.filter.filter(newText)
                 return true
             }
 
@@ -121,29 +120,10 @@ class SearchFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.nav_menu, menu)
     }
-
-    private fun filter(newText: String?) {
-        if (newText?.isNotEmpty()!!) {
-            getDictionaryList.clear()
-            var listData = DictionaryClass()
-            val getDicValue = getDictionaryList()
-            for (i in 0 until getDicValue.size) {
-                listData = getDicValue[i]
-                if (listData.name.contains(newText.toLowerCase())) {
-                    getDictionaryList.add(newText)
-                }
-            }
-
-            dictionaryAdapter.notifyDataSetChanged()
-        } else {
-            getDictionaryList.clear()
-            getDictionaryList.addAll(setDictionaryList())
-            dictionaryAdapter.notifyDataSetChanged()
-        }
     }
 
 
-}
+
 
 
 

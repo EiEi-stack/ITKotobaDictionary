@@ -5,11 +5,7 @@
         <item
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_search_gray_24dp"
-            android:searchSuggestAuthority="com.example.itkotobadictionary.MySuggestionProvider"
-            android:searchSuggestSelection=" ?"
-            android:title="@string/search"
-            app:showAsAction="always|collapseActionView"
-            app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+            android:title="@string/search" />
         <item
             android:id="@+id/nav_recently_search"
             android:icon="@drawable/ic_recent_searched_for_gray_24dp"
