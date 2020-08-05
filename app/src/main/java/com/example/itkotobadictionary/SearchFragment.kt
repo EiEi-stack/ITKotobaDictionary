@@ -1,14 +1,18 @@
 package com.example.itkotobadictionary
 
 import android.app.SearchManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import android.view.*
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.ListView
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 
 
@@ -16,6 +20,7 @@ class SearchFragment : Fragment() {
     private lateinit var dictionaryAdapter: ArrayAdapter<String?>
     lateinit var lvResult: ListView
     lateinit var getDictionaryList: MutableList<String?>
+    lateinit var searchHistory: ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -25,20 +30,10 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val intent = activity?.intent
-        if (Intent.ACTION_SEARCH == intent?.action) {
-            intent.getStringExtra(SearchManager.QUERY)?.also { query ->
-                SearchRecentSuggestions(
-                    activity?.applicationContext,
-                    MySuggestionProvider.AUTHORITY,
-                    MySuggestionProvider.MODE
-                )
-                    .saveRecentQuery(query, null)
-            }
-        }
         // Inflate the layout for this fragment
         val mainframe = inflater.inflate(R.layout.search_fragment, container, false)
         lvResult = mainframe.findViewById<ListView>(R.id.lv_result)
+        searchHistory = arrayListOf<String>()
         getDictionaryList = setDictionaryList()
         //set the listView
         dictionaryAdapter =
@@ -70,7 +65,6 @@ class SearchFragment : Fragment() {
 
             fragmentTransaction?.addToBackStack(null)
             fragmentTransaction?.commit()
-
         }
         return mainframe
     }
@@ -86,7 +80,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun getDictionaryList(): MutableList<DictionaryClass> {
-        val dataAccess: DatabaseAccess = context?.applicationContext?.let {
+        val dataAccess = context?.applicationContext?.let {
             DatabaseAccess.getInstance(
                 it
             )
@@ -96,31 +90,63 @@ class SearchFragment : Fragment() {
         return dictionaries
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = activity?.findViewById<SearchView>(R.id.search_view)
 
-        searchView?.isQueryRefinementEnabled = true
-        searchView?.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
-
-        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextChange(newText: String?): Boolean {
-                dictionaryAdapter.filter.filter(newText)
-                return true
+    private fun filter(newText: String?) {
+        if (newText?.isNotEmpty()!!) {
+            getDictionaryList.clear()
+            var search = newText.toLowerCase()
+            for (it in setDictionaryList()) {
+                if (it?.toLowerCase()?.contains(search)!!) {
+                    getDictionaryList.add(it)
+                }
             }
 
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                searchView.setQuery("", false)
-                searchView.setIconifiedByDefault(true)
-                return false
-            }
-        })
+            dictionaryAdapter.notifyDataSetChanged()
+
+        } else {
+            getDictionaryList.clear()
+            getDictionaryList.addAll(setDictionaryList())
+            dictionaryAdapter.notifyDataSetChanged()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.nav_menu, menu)
+
+        val searchView = activity?.findViewById<SearchView>(R.id.search_view)
+        searchView?.apply {
+            val searchManager = getSystemService(requireContext(), SearchManager::class.java)
+            val info = searchManager!!.getSearchableInfo(
+                context?.let {
+                    ComponentName(
+                        it,
+                        MainActivity::class.java
+                    )
+                }
+            )
+            setSearchableInfo(info)
+            searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    filter(newText)
+                    return true
+                }
+
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    searchHistory.add(query)
+
+                    //store in share preferences
+                    val editor =
+                        activity?.getSharedPreferences("History", Context.MODE_PRIVATE)?.edit()
+                    val set = HashSet<String>()
+                    set.addAll(searchHistory)
+                    editor?.putStringSet("My_HISTORY", set)
+                    editor?.apply()
+                    return true
+                }
+            })
+        }
     }
-    }
+}
 
 
 

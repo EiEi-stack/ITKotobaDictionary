@@ -58,7 +58,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
             R.id.nav_recently_search -> {
-                Toast.makeText(this, "Recently Searched clicked", Toast.LENGTH_SHORT).show()
+                replaceFragmenty(
+                    fragment = HistoryFragment(),
+                    allowStateLoss = true,
+                    containerViewId = R.id.subMainContent
+                )
                 setTitle(resources.getString(R.string.recently_search))
             }
             R.id.nav_favourite -> {
