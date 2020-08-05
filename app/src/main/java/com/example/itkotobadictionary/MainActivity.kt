@@ -31,6 +31,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         loadTheme()// load theme
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        if(savedInstanceState == null) { // initial transaction should be wrapped like this
+            var fragment:Fragment
+            fragment = SearchFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.subMainContent, fragment)
+                .commitAllowingStateLoss()
+        }
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)

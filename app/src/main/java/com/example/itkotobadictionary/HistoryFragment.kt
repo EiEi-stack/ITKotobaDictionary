@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.Toast
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,7 +47,6 @@ class HistoryFragment : Fragment() {
         ////
         if (historySearch != null) {
             for (it in historySearch) {
-                Toast.makeText(context, "History fragmen is $it", Toast.LENGTH_SHORT).show()
                 val searchHistoryResult = historySearch.toTypedArray()
                 val dictionaryAdapter =
                     context?.let {
