@@ -24,7 +24,7 @@ class LearningFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    var textSlider: MutableList<String> = mutableListOf("TinTin","ZunZun","NilarOo")
+    var textSlider: MutableList<String> = mutableListOf("TinTin", "ZunZun", "NilarOo")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +33,6 @@ class LearningFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-
     }
 
     override fun onCreateView(
@@ -43,49 +42,22 @@ class LearningFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_learning, container, false)
         val viewpager = view.findViewById<ViewPager>(R.id.viewpager)
-        val pagerAdapter = activity?.applicationContext?.let { SliderAdapter(it, setDictionaryList()) }
+        val pagerAdapter =
+            activity?.applicationContext?.let { SliderAdapter(it, setDictionaryList()) }
         viewpager.adapter = pagerAdapter
-//        val study_flip_container = view.findViewById<FrameLayout>(R.id.study_flip_container)
-//        if (savedInstanceState == null) {
-//            fragmentManager?.beginTransaction()
-//                ?.replace(R.id.study_flip_container, StudyFlipFrontFragment())?.commit()
-//
-//        } else {
-//            isShowingBackLayout = fragmentManager?.backStackEntryCount!! > 0
-//        }
-//
-//        val fragmentManager =
-//            study_flip_container.setOnClickListener {
-//                flipCard()
-//            }
         return view
     }
 
-//    private fun flipCard() {
-//        if (isShowingBackLayout) {
-//            fragmentManager?.beginTransaction()
-//                ?.replace(R.id.study_flip_container, StudyFlipFrontFragment())?.commit()
-//
-//        }
-//        isShowingBackLayout = true;
-//        fragmentManager?.beginTransaction()
-//            ?.setCustomAnimations(
-//                R.animator.cardflip_right_in, R.animator.cardflip_right_out,
-//                R.animator.cardflip_left_in, R.animator.cardflip_left_out
-//            )
-//            ?.replace(R.id.study_flip_container, StudyFlipBackFragment())
-//            ?.addToBackStack(null)
-//            ?.commit();
-//    }
-private fun setDictionaryList(): MutableList<String> {
-    val dictionaryList = getDictionaryList()
-    val showListView = mutableListOf<String>()
-    for (i in 0 until dictionaryList.size) {
-        val listData = dictionaryList[i]
-        showListView.add(i, listData.name)
+
+    private fun setDictionaryList(): MutableList<String> {
+        val dictionaryList = getDictionaryList()
+        val showListView = mutableListOf<String>()
+        for (i in 0 until dictionaryList.size) {
+            val listData = dictionaryList[i]
+            showListView.add(i, listData.name)
+        }
+        return showListView
     }
-    return showListView
-}
 
     private fun getDictionaryList(): MutableList<DictionaryClass> {
         val dataAccess = context?.applicationContext?.let {
@@ -97,6 +69,7 @@ private fun setDictionaryList(): MutableList<String> {
         val dictionaries = dataAccess.getDictionaries
         return dictionaries
     }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -116,7 +89,5 @@ private fun setDictionaryList(): MutableList<String> {
                 }
             }
     }
-
-
 
 }
