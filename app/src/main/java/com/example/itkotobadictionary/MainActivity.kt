@@ -2,6 +2,7 @@ package com.example.itkotobadictionary
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
@@ -31,8 +32,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         loadTheme()// load theme
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if(savedInstanceState == null) { // initial transaction should be wrapped like this
-            var fragment:Fragment
+        if (savedInstanceState == null) { // initial transaction should be wrapped like this
+            var fragment: Fragment
             fragment = SearchFragment()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.subMainContent, fragment)
@@ -81,6 +82,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 setTitle(resources.getString(R.string.favourite))
             }
             R.id.nav_learning -> {
+
                 replaceFragmenty(
                     fragment = LearningFragment(),
                     allowStateLoss = true,

@@ -7,4 +7,8 @@
     android:orientation="vertical"
     tools:context=".LearningFragment">
 
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </FrameLayout>

@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.viewpager.widget.ViewPager
 import kotlin.properties.Delegates
 
 // TODO: Rename parameter arguments, choose names that match
@@ -26,6 +24,7 @@ class LearningFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    var textSlider: MutableList<String> = mutableListOf("TinTin","ZunZun","NilarOo")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,39 +42,61 @@ class LearningFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_learning, container, false)
-        val study_flip_container = view.findViewById<FrameLayout>(R.id.study_flip_container)
-        if (savedInstanceState == null) {
-            fragmentManager?.beginTransaction()
-                ?.replace(R.id.study_flip_container, StudyFlipFrontFragment())?.commit()
-
-        } else {
-            isShowingBackLayout = fragmentManager?.backStackEntryCount!! > 0
-        }
-
-        val fragmentManager =
-            study_flip_container.setOnClickListener {
-                flipCard()
-            }
+        val viewpager = view.findViewById<ViewPager>(R.id.viewpager)
+        val pagerAdapter = activity?.applicationContext?.let { SliderAdapter(it, setDictionaryList()) }
+        viewpager.adapter = pagerAdapter
+//        val study_flip_container = view.findViewById<FrameLayout>(R.id.study_flip_container)
+//        if (savedInstanceState == null) {
+//            fragmentManager?.beginTransaction()
+//                ?.replace(R.id.study_flip_container, StudyFlipFrontFragment())?.commit()
+//
+//        } else {
+//            isShowingBackLayout = fragmentManager?.backStackEntryCount!! > 0
+//        }
+//
+//        val fragmentManager =
+//            study_flip_container.setOnClickListener {
+//                flipCard()
+//            }
         return view
     }
 
-    private fun flipCard() {
-        if (isShowingBackLayout) {
-            fragmentManager?.beginTransaction()
-                ?.replace(R.id.study_flip_container, StudyFlipFrontFragment())?.commit()
-
-        }
-        isShowingBackLayout = true;
-        fragmentManager?.beginTransaction()
-            ?.setCustomAnimations(
-                R.animator.cardflip_right_in, R.animator.cardflip_right_out,
-                R.animator.cardflip_left_in, R.animator.cardflip_left_out
-            )
-            ?.replace(R.id.study_flip_container, StudyFlipBackFragment())
-            ?.addToBackStack(null)
-            ?.commit();
+//    private fun flipCard() {
+//        if (isShowingBackLayout) {
+//            fragmentManager?.beginTransaction()
+//                ?.replace(R.id.study_flip_container, StudyFlipFrontFragment())?.commit()
+//
+//        }
+//        isShowingBackLayout = true;
+//        fragmentManager?.beginTransaction()
+//            ?.setCustomAnimations(
+//                R.animator.cardflip_right_in, R.animator.cardflip_right_out,
+//                R.animator.cardflip_left_in, R.animator.cardflip_left_out
+//            )
+//            ?.replace(R.id.study_flip_container, StudyFlipBackFragment())
+//            ?.addToBackStack(null)
+//            ?.commit();
+//    }
+private fun setDictionaryList(): MutableList<String> {
+    val dictionaryList = getDictionaryList()
+    val showListView = mutableListOf<String>()
+    for (i in 0 until dictionaryList.size) {
+        val listData = dictionaryList[i]
+        showListView.add(i, listData.name)
     }
+    return showListView
+}
 
+    private fun getDictionaryList(): MutableList<DictionaryClass> {
+        val dataAccess = context?.applicationContext?.let {
+            DatabaseAccess.getInstance(
+                it
+            )
+        }!!
+        dataAccess.open()
+        val dictionaries = dataAccess.getDictionaries
+        return dictionaries
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of
