@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.ToggleButton
+import androidx.appcompat.app.AppCompatActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,7 +49,7 @@ class DetailFragment : Fragment() {
         val tv_detailHiragana = view.findViewById<TextView>(R.id.tv_detailHiragana)
         val tv_detailKatakana = view.findViewById<TextView>(R.id.tv_detailKantakana)
         val tv_detailKanji = view.findViewById<TextView>(R.id.tv_detailKanji)
-        val toggleFavourite = view.findViewById<ToggleButton>(R.id.myToggleButton)
+        val toggleFavourite = view.findViewById<ToggleButton>(R.id.myToggleFavourite)
         tv_detail?.setText(getItemName)
         var listData = DictionaryClass()
         var getHiragana = ""
@@ -107,6 +108,16 @@ class DetailFragment : Fragment() {
         return dictionaries
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
+    }
+
     private fun updateFavourite(itemId: Long, isFavourite: Int) {
         val dataAccess: DatabaseAccess = context?.applicationContext?.let {
             DatabaseAccess.getInstance(
@@ -114,7 +125,7 @@ class DetailFragment : Fragment() {
             )
         }!!
         dataAccess.open()
-        dataAccess.updateFavourite(itemId+1, isFavourite)
+        dataAccess.updateFavourite(itemId + 1, isFavourite)
 
     }
 

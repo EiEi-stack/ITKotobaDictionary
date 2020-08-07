@@ -25,8 +25,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
     lateinit var navView: NavigationView
-    lateinit var getDictionaries: MutableList<DictionaryClass>
-    lateinit var dictionaryArrayAdapter: ArrayAdapter<*>
     override fun onCreate(savedInstanceState: Bundle?) {
         loadLocale() //load locale
         loadTheme()// load theme

@@ -9,11 +9,11 @@
     android:paddingLeft="15dp"
     android:paddingBottom="15dp">
 <ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:srcCompat="@mipmap/ic_launcher"
-    android:id="@+id/imageView"
-    android:layout_marginBottom="25dp"/>
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    android:background="@drawable/ic_home_black_24dp"
+    style="@style/Widget.AppCompat.ImageButton"
+    android:id="@+id/imageView"/>
 
     <TextView
         android:layout_width="match_parent"

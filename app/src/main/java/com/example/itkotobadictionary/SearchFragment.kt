@@ -3,14 +3,11 @@ package com.example.itkotobadictionary
 import android.app.SearchManager
 import android.content.ComponentName
 import android.content.Context
-import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.provider.SearchRecentSuggestions
 import android.view.*
 import android.widget.ArrayAdapter
-import android.widget.EditText
 import android.widget.ListView
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
@@ -20,10 +17,11 @@ class SearchFragment : Fragment() {
     private lateinit var dictionaryAdapter: ArrayAdapter<String?>
     lateinit var lvResult: ListView
     lateinit var getDictionaryList: MutableList<String?>
-    lateinit var searchHistory: ArrayList<String>
+    var searchHistory=  ArrayList<String>()
+    lateinit var editor: SharedPreferences.Editor
+    lateinit var set: HashSet<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -33,8 +31,10 @@ class SearchFragment : Fragment() {
         // Inflate the layout for this fragment
         val mainframe = inflater.inflate(R.layout.search_fragment, container, false)
         lvResult = mainframe.findViewById<ListView>(R.id.lv_result)
-        searchHistory = arrayListOf<String>()
         getDictionaryList = setDictionaryList()
+        set = HashSet<String>()
+        editor =
+            activity?.getSharedPreferences("History", Context.MODE_PRIVATE)?.edit()!!
         //set the listView
         dictionaryAdapter =
             context?.let {
@@ -135,9 +135,6 @@ class SearchFragment : Fragment() {
                     searchHistory.add(query)
 
                     //store in share preferences
-                    val editor =
-                        activity?.getSharedPreferences("History", Context.MODE_PRIVATE)?.edit()
-                    val set = HashSet<String>()
                     set.addAll(searchHistory)
                     editor?.putStringSet("My_HISTORY", set)
                     editor?.apply()

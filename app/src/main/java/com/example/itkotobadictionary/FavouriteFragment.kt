@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
+import android.widget.ToggleButton
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -23,7 +25,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class FavouriteFragment : Fragment() {
     // TODO: Rename and change types of parameters
-
+    var getItemId: String? = null
     private var param1: String? = null
     private var param2: String? = null
     lateinit var mAdapter: CustomAdapter
@@ -44,10 +46,20 @@ class FavouriteFragment : Fragment() {
         val favRecyclerView = view.findViewById<RecyclerView>(R.id.lv_favourite)
         val dictionaryClass = DictionaryClass()
         favRecyclerView.layoutManager = LinearLayoutManager(context)
-        mAdapter = CustomAdapter(setDictionaryList())
+        mAdapter = CustomAdapter(activity, setDictionaryList())
         favRecyclerView.adapter = mAdapter
 
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
     }
 
     private fun setDictionaryList(): MutableList<DictionaryClass> {
