@@ -17,11 +17,12 @@ class SearchFragment : Fragment() {
     private lateinit var dictionaryAdapter: ArrayAdapter<String?>
     lateinit var lvResult: ListView
     lateinit var getDictionaryList: MutableList<String?>
-    var searchHistory=  ArrayList<String>()
+    var searchHistory = ArrayList<String>()
     lateinit var editor: SharedPreferences.Editor
     lateinit var set: HashSet<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -90,6 +91,26 @@ class SearchFragment : Fragment() {
         return dictionaries
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        val searchItem = menu.findItem(R.id.nav_search)
+        val recentItem = menu.findItem(R.id.nav_recently_search)
+        val favItem = menu.findItem(R.id.nav_favourite)
+        val learnItem = menu.findItem(R.id.nav_learning)
+        val langItem = menu.findItem(R.id.nav_setting_language)
+        val themeItem = menu.findItem(R.id.nav_setting_theme)
+        val settingTitle = menu.findItem(R.id.setting_title)
+        val learningTitle = menu.findItem(R.id.learning_title)
+        searchItem.setVisible(false)
+        recentItem.setVisible(false)
+        favItem.setVisible(false)
+        learnItem.setVisible(false)
+        langItem.setVisible(false)
+        themeItem.setVisible(false)
+        settingTitle.setVisible(false)
+        learningTitle.setVisible(false)
+        super.onPrepareOptionsMenu(menu)
+
+    }
 
     private fun filter(newText: String?) {
         if (newText?.isNotEmpty()!!) {
@@ -111,6 +132,7 @@ class SearchFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
         inflater.inflate(R.menu.nav_menu, menu)
 
         val searchView = activity?.findViewById<SearchView>(R.id.search_view)
