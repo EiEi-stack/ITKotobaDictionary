@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.viewpager.widget.PagerAdapter
 
 class SliderAdapter : PagerAdapter {
@@ -21,7 +22,7 @@ class SliderAdapter : PagerAdapter {
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean =
-        view == `object` as LinearLayout
+        view == `object` as CardView
 
 
     override fun getCount(): Int = textSlider.size
@@ -71,7 +72,7 @@ class SliderAdapter : PagerAdapter {
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        container!!.removeView(`object` as LinearLayout)
+        container!!.removeView(`object` as CardView)
     }
 
 }

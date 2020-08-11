@@ -43,6 +43,7 @@ class LearningFragment : Fragment() {
         val viewpager = view.findViewById<ViewPager>(R.id.viewpager)
         val pagerAdapter =
             activity?.applicationContext?.let { SliderAdapter(it, setDictionaryList()) }
+        viewpager.setPageTransformer(true,ZoomOutPageTransformer())
         viewpager.adapter = pagerAdapter
         return view
     }

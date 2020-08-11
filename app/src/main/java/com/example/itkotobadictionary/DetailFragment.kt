@@ -1,12 +1,17 @@
 package com.example.itkotobadictionary
 
+import android.os.Build
 import android.os.Bundle
+import android.service.autofill.OnClickAction
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.ToggleButton
+import android.widget.Toolbar
+import androidx.activity.OnBackPressedDispatcher
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 
 // TODO: Rename parameter arguments, choose names that match
@@ -39,6 +44,7 @@ class DetailFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
