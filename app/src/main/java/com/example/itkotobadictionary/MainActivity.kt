@@ -2,13 +2,9 @@ package com.example.itkotobadictionary
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -17,8 +13,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
-import java.security.AccessControlContext
-import java.security.AccessController.getContext
 import java.util.*
 
 
@@ -89,11 +83,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 )
                 setTitle(resources.getString(R.string.learning))
             }
+            R.id.nav_add_new_words -> {
+
+                replaceFragmenty(
+                    fragment = AddNewWords(),
+                    allowStateLoss = true,
+                    containerViewId = R.id.subMainContent
+                )
+                setTitle(resources.getString(R.string.learning))
+            }
             R.id.nav_setting_language -> {
                 //language setting
-                val listItems = arrayOf("English", "日本語", "မြန်မာဘာသာ")
+                val listItems = arrayOf("English", "日本語")
+//                val listItems = arrayOf("English", "日本語", "မြန်မာဘာသာ")
                 val sBuilder = AlertDialog.Builder(this@MainActivity)
-                sBuilder.setTitle(getString(R.string.chooselanguage))
+                sBuilder.setTitle(getString(R.string.choose_language))
                 sBuilder.setSingleChoiceItems(listItems, -1) { dialog, which ->
 
                     if (which == 0) {
@@ -102,42 +106,48 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     } else if (which == 1) {
                         setLocate("ja")
                         recreate()
-                    } else if (which == 2) {
-                        setLocate("my")
-                        recreate()
                     }
+//                    else if (which == 2) {
+//                        setLocate("my")
+//                        recreate()
+//                    }
                     dialog.dismiss()
                 }
                 val mDialog = sBuilder.create()
                 mDialog.show()
                 setTitle(resources.getString(R.string.language_setting))
             }
-            R.id.nav_setting_theme -> {
-                //theme setting
-                val listItems = arrayOf("Pink", "Green", "Red", "Blue")
-                val sBuilder = AlertDialog.Builder(this@MainActivity)
-                sBuilder.setTitle(getString(R.string.chooseTheme))
-                sBuilder.setSingleChoiceItems(listItems, -1) { dialog, which ->
-
-                    if (which == 0) {
-                        setThemeColor("pink")
-                        recreate()
-                    } else if (which == 1) {
-                        setThemeColor("green")
-                        recreate()
-                    } else if (which == 2) {
-                        setThemeColor("red")
-                        recreate()
-                    } else if (which == 3) {
-                        setThemeColor("blue")
-                        recreate()
-                    }
-                    dialog.dismiss()
-                }
-                val mDialog = sBuilder.create()
-                mDialog.show()
-                setTitle(resources.getString(R.string.theme_setting))
-            }
+//            R.id.nav_setting_theme -> {
+//                //theme setting
+//                val listItems = arrayOf(
+//                    getString(R.string.color_pink),
+//                    getString(R.string.color_green),
+//                    getString(R.string.color_red),
+//                    getString(R.string.color_blue)
+//                )
+//                val sBuilder = AlertDialog.Builder(this@MainActivity)
+//                sBuilder.setTitle(getString(R.string.chooseTheme))
+//                sBuilder.setSingleChoiceItems(listItems, -1) { dialog, which ->
+//
+//                    if (which == 0) {
+//                        setThemeColor("pink")
+//                        recreate()
+//                    } else if (which == 1) {
+//                        setThemeColor("green")
+//                        recreate()
+//                    } else if (which == 2) {
+//                        setThemeColor("red")
+//                        recreate()
+//                    } else if (which == 3) {
+//                        setThemeColor("blue")
+//                        recreate()
+//                    }
+//                    dialog.dismiss()
+//                }
+//                val mDialog = sBuilder.create()
+//                mDialog.show()
+//                setTitle(resources.getString(R.string.theme_setting))
+//            }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true

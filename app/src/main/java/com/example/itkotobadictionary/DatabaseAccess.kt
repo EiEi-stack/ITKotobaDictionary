@@ -129,6 +129,16 @@ class DatabaseAccess private constructor(context: Context) {
         }
     }
 
+    fun addNew(dictionary: DictionaryClass): Boolean {
+        val cv = ContentValues()
+        cv.put(COL_NAME, dictionary.name)
+        cv.put(COL_HIRAGANA, dictionary.hiragana)
+        cv.put(COL_KANJI, dictionary.kanji)
+        cv.put(COL_KATAKANA, dictionary.katakana)
+        val result = database?.insert(TABLE_DICTIONARY, null, cv)
+        return result != (-1).toLong()
+    }
+
     private fun updateKotoba(kotoba: DictionaryClass) {
         val cv = ContentValues()
         cv.put(COL_ID, kotoba.id)

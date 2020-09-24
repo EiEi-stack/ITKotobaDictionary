@@ -15,6 +15,10 @@
             android:id="@+id/nav_favourite"
             android:icon="@drawable/ic_favorite_border_gray_24dp"
             android:title="@string/favourite" />
+        <item
+            android:id="@+id/nav_add_new_words"
+            android:icon="@drawable/ic_add_black_24dp"
+            android:title="@string/add_new_words" />
 
     </group>
     <item android:title="@string/learning"
@@ -34,10 +38,10 @@
                 android:id="@+id/nav_setting_language"
                 android:icon="@drawable/ic_language_gray_24dp"
                 android:title="@string/language_setting" />
-            <item
-                android:id="@+id/nav_setting_theme"
-                android:icon="@drawable/ic_color_lens_gray_24dp"
-                android:title="@string/theme_setting" />
+<!--            <item-->
+<!--                android:id="@+id/nav_setting_theme"-->
+<!--                android:icon="@drawable/ic_color_lens_gray_24dp"-->
+<!--                android:title="@string/theme_setting" />-->
 
         </menu>
     </item>

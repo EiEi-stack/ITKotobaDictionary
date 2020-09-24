@@ -11,8 +11,18 @@
     <string name="theme_setting">テーマ設定</string>
     <string name="learning">学習する</string>
     <string name="setting">設定</string>
-    <string name="chooselanguage">言語を選択</string>
+    <string name="choose_language">言語を選択</string>
     <string name="chooseTheme">テーマを選択</string>
     <string name="search_hint">検索ヒント</string>
-
+    <string name="color_pink">ピンク</string>
+    <string name="color_green">緑</string>
+    <string name="color_red">赤</string>
+    <string name="color_blue">青い</string>
+    <string name="add_new_words">新しい単語を追加する</string>
+    <!--AddNewWordFragment-->
+    <string name="name">名</string>
+    <string name="hiragana">ひらがな</string>
+    <string name="kanji">漢字</string>
+    <string name="katakana">カタカナ</string>
+    <string name="add_new_word">新しい単語を追加する</string>
 </resources>

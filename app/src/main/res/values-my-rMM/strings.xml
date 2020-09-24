@@ -11,7 +11,18 @@
     <string name="theme_setting">အရောင်ချိန်ညှိခြင်း</string>
     <string name="learning">သင်ယူခြင်း</string>
     <string name="setting">ချိန်ညှိခြင်း</string>
-    <string name="chooselanguage">ဘာသာစကားရွေးပါ</string>
+    <string name="choose_language">ဘာသာစကားရွေးပါ</string>
     <string name="chooseTheme">အရောင်စကားရွေးပါ</string>
     <string name="search_hint">သဲလွန်စရှာဖွေသည်</string>
+    <string name="color_pink">ပန်းရောင်</string>
+    <string name="color_green">အစိမ်းရောင်</string>
+    <string name="color_red">အနီရောင်</string>
+    <string name="color_blue">အပြာရောင်</string>
+    <string name="add_new_words">စကားလုံးအသစ်တိုးမည်</string>
+    <!--AddNewWordFragment-->
+    <string name="name">အမည်</string>
+    <string name="hiragana">ဟိရဂန</string>
+    <string name="kanji">ခန်းဂျီး</string>
+    <string name="katakana">ခတခန</string>
+    <string name="add_new_word">စာလုံးအသစ်ထပ်ထည့်မည်</string>
 </resources>

@@ -11,11 +11,18 @@
     <string name="theme_setting">Theme Setting</string>
     <string name="learning">Learning</string>
     <string name="setting">Setting</string>
-    <string name="chooselanguage">Choose Language</string>
+    <string name="choose_language">Choose Language</string>
     <string name="chooseTheme">Choose Theme</string>
     <string name="search_hint">search hint</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="color_pink">Pink</string>
+    <string name="color_green">Green</string>
+    <string name="color_red">Red</string>
+    <string name="color_blue">Blue</string>
+    <string name="add_new_words">Add New Words</string>
+    <!--AddNewWordFragment-->
+    <string name="name">name</string>
+    <string name="hiragana">Hiragana</string>
+    <string name="kanji">Kanji</string>
+    <string name="katakana">Katakana</string>
+    <string name="add_new_word">Add New Word</string>
 </resources>
