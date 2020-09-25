@@ -20,6 +20,7 @@ class SearchFragment : Fragment() {
     var searchHistory = ArrayList<String>()
     lateinit var editor: SharedPreferences.Editor
     lateinit var set: HashSet<String>
+    lateinit var searchCustomAdapter: SearchListViewAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -37,15 +38,19 @@ class SearchFragment : Fragment() {
         editor =
             activity?.getSharedPreferences("History", Context.MODE_PRIVATE)?.edit()!!
         //set the listView
-        dictionaryAdapter =
-            context?.let {
-                ArrayAdapter(
-                    it,
-                    android.R.layout.simple_list_item_1,
-                    getDictionaryList
-                )
-            }!!
-        lvResult.adapter = dictionaryAdapter
+//        dictionaryAdapter =
+//            context?.let {
+//                ArrayAdapter(
+//                    it,
+//                    android.R.layout.simple_list_item_1,
+//                    getDictionaryList
+//                )
+//            }!!
+//        lvResult.adapter = dictionaryAdapter
+
+        searchCustomAdapter =
+            activity?.applicationContext?.let { SearchListViewAdapter(it,getDictionaryList()) }!!
+        lvResult.adapter = searchCustomAdapter
 
         lvResult.setOnItemClickListener { parent, view, position, id ->
             val fragmentTransaction = activity?.getSupportFragmentManager()

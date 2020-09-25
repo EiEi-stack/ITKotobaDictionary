@@ -12,9 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 class CustomAdapter(
     val activity: FragmentActivity?,
     private val dictionaryList: MutableList<DictionaryClass>
-) :
-
-    RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+) :RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     //Viewの初期化
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
