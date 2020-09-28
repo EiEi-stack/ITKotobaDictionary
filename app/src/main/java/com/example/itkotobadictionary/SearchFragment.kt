@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 
 
 class SearchFragment : Fragment() {
-//    private lateinit var dictionaryAdapter: ArrayAdapter<String?>
+    //    private lateinit var dictionaryAdapter: ArrayAdapter<String?>
     lateinit var lvResult: ListView
     lateinit var getDictionaryList: MutableList<String?>
     var searchHistory = ArrayList<String>()
@@ -37,41 +37,8 @@ class SearchFragment : Fragment() {
         set = HashSet<String>()
         editor =
             activity?.getSharedPreferences("History", Context.MODE_PRIVATE)?.edit()!!
-        //set the listView
-//        dictionaryAdapter =
-//            context?.let {
-//                ArrayAdapter(
-//                    it,
-//                    android.R.layout.simple_list_item_1,
-//                    getDictionaryList
-//                )
-//            }!!
-//        lvResult.adapter = dictionaryAdapter
-
-        searchCustomAdapter =
-            activity?.applicationContext?.let { SearchListViewAdapter(it,getDictionaryList()) }!!
+        searchCustomAdapter = SearchListViewAdapter(activity, getDictionaryList())
         lvResult.adapter = searchCustomAdapter
-
-        lvResult.setOnItemClickListener { parent, view, position, id ->
-            val fragmentTransaction = activity?.getSupportFragmentManager()
-                ?.beginTransaction()
-            val clickeditem =
-                parent.adapter.getItem(position)
-            val detailFragment =
-                DetailFragment() //the fragment you want to show
-            val bundle = Bundle()
-            bundle.putString("ITEM_NAME", clickeditem.toString())
-            bundle.putString("ITEM_ID", id.toString())
-            detailFragment.arguments = bundle
-            fragmentTransaction
-                ?.replace(
-                    R.id.subMainContent,
-                    detailFragment
-                ) //R.id.content_frame is the layout you want to replace
-
-            fragmentTransaction?.addToBackStack(null)
-            fragmentTransaction?.commit()
-        }
         return mainframe
     }
 
