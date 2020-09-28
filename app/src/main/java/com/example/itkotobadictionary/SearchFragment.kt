@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 
 
 class SearchFragment : Fragment() {
-    private lateinit var dictionaryAdapter: ArrayAdapter<String?>
+//    private lateinit var dictionaryAdapter: ArrayAdapter<String?>
     lateinit var lvResult: ListView
     lateinit var getDictionaryList: MutableList<String?>
     var searchHistory = ArrayList<String>()
@@ -127,12 +127,12 @@ class SearchFragment : Fragment() {
                 }
             }
 
-            dictionaryAdapter.notifyDataSetChanged()
+            searchCustomAdapter.notifyDataSetChanged()
 
         } else {
             getDictionaryList.clear()
             getDictionaryList.addAll(setDictionaryList())
-            dictionaryAdapter.notifyDataSetChanged()
+            searchCustomAdapter.notifyDataSetChanged()
         }
     }
 
