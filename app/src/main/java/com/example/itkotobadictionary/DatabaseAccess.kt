@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 
-class DatabaseAccess private constructor(context: Context) {
+class DatabaseAccess(context: Context) {
     private val openHelper: SQLiteOpenHelper
     private var database: SQLiteDatabase? = null
 
@@ -34,7 +34,7 @@ class DatabaseAccess private constructor(context: Context) {
     val getDictionaries: MutableList<DictionaryClass>
         get() {
             val list: MutableList<DictionaryClass> = ArrayList()
-            val queryResult = database!!.rawQuery("SELECT * FROM dictionary", null)
+            val queryResult = database!!.rawQuery("SELECT * FROM dictionary WHERE $COL_IS_DELETED=0", null)
             if (queryResult.moveToFirst()) {
                 do {
                     val dictionaryClass = DictionaryClass()
@@ -60,6 +60,11 @@ class DatabaseAccess private constructor(context: Context) {
                             COL_FAVOURITE_STATUS
                         )
                     )
+                    dictionaryClass.isDeleted = queryResult.getInt(
+                        queryResult.getColumnIndex(
+                            COL_IS_DELETED
+                        )
+                    )
                     list.add(dictionaryClass)
                 } while (queryResult.moveToNext())
                 queryResult.close()
@@ -72,7 +77,7 @@ class DatabaseAccess private constructor(context: Context) {
         get() {
             val list: MutableList<DictionaryClass> = ArrayList()
             val queryResult =
-                database!!.rawQuery("SELECT * FROM dictionary WHERE $COL_FAVOURITE_STATUS=1", null)
+                database!!.rawQuery("SELECT * FROM dictionary WHERE $COL_FAVOURITE_STATUS=1 AND $COL_IS_DELETED =0", null)
             if (queryResult.moveToFirst()) {
                 do {
                     val dictionaryClass = DictionaryClass()
@@ -99,6 +104,11 @@ class DatabaseAccess private constructor(context: Context) {
                             COL_FAVOURITE_STATUS
                         )
                     )
+                    dictionaryClass.isDeleted = queryResult.getInt(
+                        queryResult.getColumnIndex(
+                            COL_IS_DELETED
+                        )
+                    )
                     list.add(dictionaryClass)
                 } while (queryResult.moveToNext())
                 queryResult.close()
@@ -108,7 +118,7 @@ class DatabaseAccess private constructor(context: Context) {
         }
 
     fun updateFavourite(itemId: Long, isFavourite: Int) {
-        val queryResult = database?.rawQuery("SELECT * FROM dictionary WHERE $COL_ID=$itemId", null)
+        val queryResult = database?.rawQuery("SELECT * FROM dictionary WHERE $COL_ID=$itemId AND $COL_IS_DELETED =0", null)
         if (queryResult != null) {
             if (queryResult.moveToFirst()) {
                 do {
@@ -121,6 +131,7 @@ class DatabaseAccess private constructor(context: Context) {
                         queryResult.getString(queryResult.getColumnIndex(COL_KATAKANA))
                     kotoba.kanji = queryResult.getString(queryResult.getColumnIndex(COL_KANJI))
                     kotoba.favouriteStatus = isFavourite
+                    kotoba.isDeleted = queryResult.getInt(queryResult.getColumnIndex(COL_IS_DELETED))
                     updateKotoba(kotoba)
 
                 } while (queryResult.moveToNext())
@@ -139,6 +150,17 @@ class DatabaseAccess private constructor(context: Context) {
         return result != (-1).toLong()
     }
 
+    fun deleteItem(dictionary:DictionaryClass):Int? {
+        val cv = ContentValues()
+        cv.put(COL_NAME, dictionary.name)
+        cv.put(COL_HIRAGANA, dictionary.hiragana)
+        cv.put(COL_KANJI, dictionary.kanji)
+        cv.put(COL_KATAKANA, dictionary.katakana)
+        cv.put(COL_IS_DELETED, 1)
+      val result=  database?.update(TABLE_DICTIONARY, cv,"$COL_ID=?", arrayOf(dictionary.id.toString()))
+        return result
+    }
+
     private fun updateKotoba(kotoba: DictionaryClass) {
         val cv = ContentValues()
         cv.put(COL_ID, kotoba.id)
@@ -147,6 +169,7 @@ class DatabaseAccess private constructor(context: Context) {
         cv.put(COL_KATAKANA, kotoba.katakana)
         cv.put(COL_KANJI, kotoba.kanji)
         cv.put(COL_FAVOURITE_STATUS, kotoba.favouriteStatus)
+        cv.put(COL_IS_DELETED, kotoba.isDeleted)
         database?.update(TABLE_DICTIONARY, cv, "$COL_ID=?", arrayOf((kotoba.id.toString())))
     }
 

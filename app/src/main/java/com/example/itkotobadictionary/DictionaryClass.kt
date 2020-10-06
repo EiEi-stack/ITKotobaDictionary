@@ -7,5 +7,6 @@ class DictionaryClass {
     var hiragana: String = ""
     var katakana: String = ""
     var favouriteStatus = 0
+    var isDeleted = 0
 
 }

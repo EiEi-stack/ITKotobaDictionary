@@ -20,8 +20,8 @@
 
         <Button
             android:id="@+id/btn_search_delete"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:background="@drawable/ic_delete_forever_black_24dp" />
     </RelativeLayout>

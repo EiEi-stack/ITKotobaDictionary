@@ -43,7 +43,24 @@ class SearchListViewAdapter(
             fragmentTransaction?.commit()
         })
         btnDelete?.setOnClickListener(View.OnClickListener {
-            Toast.makeText(activity, "Btn Click${dictionaryItem.name}", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(activity, "Btn Click${dictionaryItem.name}", Toast.LENGTH_SHORT).show()
+            val dataAccess = activity?.applicationContext?.let {
+                DatabaseAccess.getInstance(
+                    it
+                )
+            }!!
+            dataAccess.open()
+            val dictionary = DictionaryClass()
+            dictionary.id= dataSource[position].id
+            dictionary.name= dataSource[position].name
+            dictionary.hiragana = dataSource[position].hiragana
+            dictionary.katakana = dataSource[position].katakana
+            dictionary.kanji = dataSource[position].kanji
+            dictionary.isDeleted = 1
+          val result=  dataAccess.deleteItem(dictionary)
+            if(result==1){
+                Toast.makeText(activity, "アイテムを削除しました。", Toast.LENGTH_SHORT).show()
+            }
         })
         return layoutView
     }

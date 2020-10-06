@@ -7,5 +7,6 @@ const val COL_HIRAGANA = "hiragana"
 const val COL_KANJI = "kanji"
 const val COL_KATAKANA = "katakana"
 const val COL_FAVOURITE_STATUS = "favouriteStatus"
+const val COL_IS_DELETED = "isDeleted"
 
 
