@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.FragmentActivity
 
 class SearchListViewAdapter(
@@ -17,12 +14,13 @@ class SearchListViewAdapter(
 ) : BaseAdapter() {
     private val inflater =
         activity?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val layoutView = inflater.inflate(R.layout.sub_list_search_fragment, parent, false)
         val txtHiragana = layoutView?.findViewById<TextView>(R.id.txt_search_hiragana)
         val btnDelete = layoutView?.findViewById<Button>(R.id.btn_search_delete)
+        val searchListView = layoutView?.findViewById<ListView>(R.id.lv_result)
         val dictionaryItem = getItem(position) as DictionaryClass
+
 
         txtHiragana?.text = dictionaryItem.name
         txtHiragana?.setOnClickListener(View.OnClickListener {
@@ -51,14 +49,14 @@ class SearchListViewAdapter(
             }!!
             dataAccess.open()
             val dictionary = DictionaryClass()
-            dictionary.id= dataSource[position].id
-            dictionary.name= dataSource[position].name
-            dictionary.hiragana = dataSource[position].hiragana
-            dictionary.katakana = dataSource[position].katakana
-            dictionary.kanji = dataSource[position].kanji
+            dictionary.name = dictionaryItem.name
+            dictionary.hiragana = dictionaryItem.hiragana
+            dictionary.katakana = dictionaryItem.katakana
+            dictionary.kanji = dictionaryItem.kanji
             dictionary.isDeleted = 1
-          val result=  dataAccess.deleteItem(dictionary)
-            if(result==1){
+            val result = dataAccess.deleteItem(dictionary)
+            val list = dataAccess.getDictionaries
+            if (result == 1) {
                 Toast.makeText(activity, "アイテムを削除しました。", Toast.LENGTH_SHORT).show()
             }
         })

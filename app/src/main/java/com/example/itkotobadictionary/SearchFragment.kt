@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
-import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat.getSystemService
@@ -59,8 +58,7 @@ class SearchFragment : Fragment() {
             )
         }!!
         dataAccess.open()
-        val dictionaries = dataAccess.getDictionaries
-        return dictionaries
+        return dataAccess.getDictionaries
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
@@ -72,18 +70,17 @@ class SearchFragment : Fragment() {
 //        val themeItem = menu.findItem(R.id.nav_setting_theme)
         val settingTitle = menu.findItem(R.id.setting_title)
         val learningTitle = menu.findItem(R.id.learning_title)
-        searchItem.setVisible(false)
-        recentItem.setVisible(false)
-        favItem.setVisible(false)
-        learnItem.setVisible(false)
-        langItem.setVisible(false)
+        searchItem.isVisible = false
+        recentItem.isVisible = false
+        favItem.isVisible = false
+        learnItem.isVisible = false
+        langItem.isVisible = false
 //        themeItem.setVisible(false)
-        settingTitle.setVisible(false)
-        learningTitle.setVisible(false)
+        settingTitle.isVisible = false
+        learningTitle.isVisible = false
         super.onPrepareOptionsMenu(menu)
 
     }
-
     private fun filter(newText: String?) {
         if (newText?.isNotEmpty()!!) {
             getDictionaryList.clear()

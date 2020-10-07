@@ -157,7 +157,7 @@ class DatabaseAccess(context: Context) {
         cv.put(COL_KANJI, dictionary.kanji)
         cv.put(COL_KATAKANA, dictionary.katakana)
         cv.put(COL_IS_DELETED, 1)
-      val result=  database?.update(TABLE_DICTIONARY, cv,"$COL_ID=?", arrayOf(dictionary.id.toString()))
+      val result=  database?.update(TABLE_DICTIONARY, cv,"$COL_NAME=?", arrayOf(dictionary.name.toString()))
         return result
     }
 
