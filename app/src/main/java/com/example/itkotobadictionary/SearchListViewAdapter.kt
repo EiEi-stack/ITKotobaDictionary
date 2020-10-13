@@ -62,6 +62,11 @@ class SearchListViewAdapter(
         })
         return layoutView
     }
+    fun updateDiction
+
+    override fun notifyDataSetChanged() {
+        super.notifyDataSetChanged()
+    }
 
     override fun getItem(position: Int): Any {
         return dataSource[position]
