@@ -25,4 +25,11 @@
     <string name="kanji">漢字</string>
     <string name="katakana">カタカナ</string>
     <string name="add_new_word">新しい単語を追加する</string>
+    <string name="report_the_problem">問題を報告する</string>
+
+    <!-- ReportProblem -->
+    <string name="report">報告</string>
+    <string name="to">差出人:</string>
+    <string name="subject">件名:</string>
+    <string name="send">送信</string>
 </resources>

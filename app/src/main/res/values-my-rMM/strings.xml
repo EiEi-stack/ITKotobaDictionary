@@ -19,10 +19,17 @@
     <string name="color_red">အနီရောင်</string>
     <string name="color_blue">အပြာရောင်</string>
     <string name="add_new_words">စကားလုံးအသစ်တိုးမည်</string>
-    <!--AddNewWordFragment-->
+    <!--AddNewWordFragmပို့မည်ent-->
     <string name="name">အမည်</string>
     <string name="hiragana">ဟိရဂန</string>
     <string name="kanji">ခန်းဂျီး</string>
     <string name="katakana">ခတခန</string>
     <string name="add_new_word">စာလုံးအသစ်ထပ်ထည့်မည်</string>
+    <string name="report_the_problem">ပြဿနာတင်ပြမည်</string>
+
+    <!-- ReportProblem -->
+    <string name="report">ပြဿနာ</string>
+    <string name="to">ပို့မည့်မေးလိပ်စာ:</string>
+    <string name="subject">အကြောင်းအရာ</string>
+    <string name="send"></string>
 </resources>

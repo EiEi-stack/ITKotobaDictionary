@@ -92,6 +92,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 )
                 setTitle(resources.getString(R.string.learning))
             }
+            R.id.nav_report -> {
+                replaceFragmenty(
+                    fragment = ReportPloblem(),
+                    allowStateLoss = true,
+                    containerViewId = R.id.subMainContent
+                )
+                setTitle(resources.getString(R.string.learning))
+            }
             R.id.nav_setting_language -> {
                 //language setting
                 val listItems = arrayOf("English", "日本語")

@@ -25,4 +25,11 @@
     <string name="kanji">Kanji</string>
     <string name="katakana">Katakana</string>
     <string name="add_new_word">Add New Word</string>
+    <string name="report_the_problem">Report the problem</string>
+
+    <!-- ReportProblem -->
+    <string name="report">Report</string>
+    <string name="to">To:</string>
+    <string name="subject">Subject:</string>
+    <string name="send">Send</string>
 </resources>

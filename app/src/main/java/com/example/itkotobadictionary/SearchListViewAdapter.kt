@@ -18,7 +18,6 @@ class SearchListViewAdapter(
         val layoutView = inflater.inflate(R.layout.sub_list_search_fragment, parent, false)
         val txtHiragana = layoutView?.findViewById<TextView>(R.id.txt_search_hiragana)
         val btnDelete = layoutView?.findViewById<Button>(R.id.btn_search_delete)
-        val searchListView = layoutView?.findViewById<ListView>(R.id.lv_result)
         val dictionaryItem = getItem(position) as DictionaryClass
 
 
@@ -62,7 +61,6 @@ class SearchListViewAdapter(
         })
         return layoutView
     }
-    fun updateDiction
 
     override fun notifyDataSetChanged() {
         super.notifyDataSetChanged()

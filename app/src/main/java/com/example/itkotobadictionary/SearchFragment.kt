@@ -16,7 +16,6 @@ class SearchFragment : Fragment() {
     //    private lateinit var dictionaryAdapter: ArrayAdapter<String?>
     lateinit var lvResult: ListView
     lateinit var getDictionaryList: MutableList<String?>
-    lateinit var tempDictionaryList: MutableList<String?>
     var searchHistory = ArrayList<String>()
     lateinit var editor: SharedPreferences.Editor
     lateinit var set: HashSet<String>
@@ -34,7 +33,6 @@ class SearchFragment : Fragment() {
         val mainframe = inflater.inflate(R.layout.search_fragment, container, false)
         lvResult = mainframe.findViewById<ListView>(R.id.lv_result)
         getDictionaryList = setDictionaryList()
-        tempDictionaryList = setDictionaryList()
         set = HashSet<String>()
         editor =
             activity?.getSharedPreferences("History", Context.MODE_PRIVATE)?.edit()!!
@@ -86,15 +84,12 @@ class SearchFragment : Fragment() {
     private fun filter(newText: String?) {
         if (newText?.isNotEmpty()!!) {
             getDictionaryList.clear()
-            tempDictionaryList.clear()
             var search = newText.toLowerCase()
             for (it in setDictionaryList()) {
                 if (it?.toLowerCase()?.contains(search)!!) {
-                    tempDictionaryList.add(it)
+                    getDictionaryList.add(it)
                 }
             }
-            getDictionaryList.clear()
-            getDictionaryList.addAll(tempDictionaryList)
             searchCustomAdapter.notifyDataSetChanged()
 
         } else {
