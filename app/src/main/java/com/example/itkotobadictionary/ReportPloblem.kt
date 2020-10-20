@@ -40,15 +40,19 @@ class ReportPloblem : Fragment() {
     ): View? {
         val view =inflater.inflate(R.layout.fragment_report_ploblem, container, false)
         val sendButton = view.findViewById<Button>(R.id.btn_report_send)
+        val etEmail = view.findViewById<EditText>(R.id.et_report_toEmail)
         val etSubject = view.findViewById<EditText>(R.id.et_report_subject)
         val etMessage = view.findViewById<EditText>(R.id.et_report_message)
         // Inflate the layout for this fragment
         sendButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_SENDTO)
-            intent.setData(Uri.parse("eieihan.94"))
-            intent.putExtra(Intent.EXTRA_SUBJECT,etSubject.toString())
-            intent.putExtra(Intent.EXTRA_TEXT,etMessage.toString())
+            val fragment = SearchFragment()
+            intent.data = Uri.parse("mailto: eieihan.94@gmail.com")
+            intent.putExtra(Intent.EXTRA_EMAIL,etEmail.text.toString())
+            intent.putExtra(Intent.EXTRA_SUBJECT,etSubject.text.toString())
+            intent.putExtra(Intent.EXTRA_TEXT,etMessage.text.toString())
             startActivity(Intent.createChooser(intent,"choose an Email client"))
+            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.subMainContent,fragment)?.commit()
         }
         return view
     }

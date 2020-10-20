@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentActivity
 
 class SearchListViewAdapter(
     private val activity: FragmentActivity?,
-    private val dataSource: MutableList<DictionaryClass>
+    private var dataSource: MutableList<DictionaryClass>
 ) : BaseAdapter() {
     private val inflater =
         activity?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -19,7 +19,6 @@ class SearchListViewAdapter(
         val txtHiragana = layoutView?.findViewById<TextView>(R.id.txt_search_hiragana)
         val btnDelete = layoutView?.findViewById<Button>(R.id.btn_search_delete)
         val dictionaryItem = getItem(position) as DictionaryClass
-
 
         txtHiragana?.text = dictionaryItem.name
         txtHiragana?.setOnClickListener(View.OnClickListener {
@@ -40,7 +39,6 @@ class SearchListViewAdapter(
             fragmentTransaction?.commit()
         })
         btnDelete?.setOnClickListener(View.OnClickListener {
-//            Toast.makeText(activity, "Btn Click${dictionaryItem.name}", Toast.LENGTH_SHORT).show()
             val dataAccess = activity?.applicationContext?.let {
                 DatabaseAccess.getInstance(
                     it
@@ -54,16 +52,16 @@ class SearchListViewAdapter(
             dictionary.kanji = dictionaryItem.kanji
             dictionary.isDeleted = 1
             val result = dataAccess.deleteItem(dictionary)
-            val list = dataAccess.getDictionaries
             if (result == 1) {
                 Toast.makeText(activity, "アイテムを削除しました。", Toast.LENGTH_SHORT).show()
+                updateResults(dataAccess.getDictionaries)
             }
         })
         return layoutView
     }
-
-    override fun notifyDataSetChanged() {
-        super.notifyDataSetChanged()
+    fun updateResults(result:MutableList<DictionaryClass> ){
+        dataSource =result
+        notifyDataSetChanged()
     }
 
     override fun getItem(position: Int): Any {
