@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.Window
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -44,8 +45,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
+        this.supportActionBar?.hide()
     }
 
+    override fun onResume() {
+        super.onResume()
+        this.supportActionBar?.hide()
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        this.supportActionBar?.hide()
+    }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         var fragment: Fragment
         when (item.itemId) {
@@ -64,7 +76,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     allowStateLoss = true,
                     containerViewId = R.id.subMainContent
                 )
-                setTitle(resources.getString(R.string.recently_search))
+                title = resources.getString(R.string.recently_search)
             }
             R.id.nav_favourite -> {
                 replaceFragmenty(
@@ -72,7 +84,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     allowStateLoss = true,
                     containerViewId = R.id.subMainContent
                 )
-                setTitle(resources.getString(R.string.favourite))
+                title = resources.getString(R.string.favourite)
             }
             R.id.nav_learning -> {
 
@@ -81,7 +93,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     allowStateLoss = true,
                     containerViewId = R.id.subMainContent
                 )
-                setTitle(resources.getString(R.string.learning))
+                title = resources.getString(R.string.learning)
             }
             R.id.nav_add_new_words -> {
 
@@ -90,7 +102,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     allowStateLoss = true,
                     containerViewId = R.id.subMainContent
                 )
-                setTitle(resources.getString(R.string.learning))
+                title = resources.getString(R.string.learning)
             }
             R.id.nav_report -> {
                 replaceFragmenty(
@@ -98,7 +110,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     allowStateLoss = true,
                     containerViewId = R.id.subMainContent
                 )
-                setTitle(resources.getString(R.string.learning))
+                title = resources.getString(R.string.learning)
             }
             R.id.nav_setting_language -> {
                 //language setting

@@ -59,7 +59,7 @@ class SearchListViewAdapter(
         })
         return layoutView
     }
-    fun updateResults(result:MutableList<DictionaryClass> ){
+    private fun updateResults(result:MutableList<DictionaryClass> ){
         dataSource =result
         notifyDataSetChanged()
     }

@@ -15,14 +15,13 @@ import androidx.fragment.app.Fragment
 class SearchFragment : Fragment() {
     //    private lateinit var dictionaryAdapter: ArrayAdapter<String?>
     lateinit var lvResult: ListView
-    lateinit var getDictionaryList: MutableList<String?>
+    lateinit var showSearchedResult: MutableList<DictionaryClass>
     var searchHistory = ArrayList<String>()
     lateinit var editor: SharedPreferences.Editor
     lateinit var set: HashSet<String>
     lateinit var searchCustomAdapter: SearchListViewAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -32,23 +31,13 @@ class SearchFragment : Fragment() {
         // Inflate the layout for this fragment
         val mainframe = inflater.inflate(R.layout.search_fragment, container, false)
         lvResult = mainframe.findViewById<ListView>(R.id.lv_result)
-        getDictionaryList = setDictionaryList()
+        showSearchedResult = getDictionaryList()
         set = HashSet<String>()
         editor =
             activity?.getSharedPreferences("History", Context.MODE_PRIVATE)?.edit()!!
         searchCustomAdapter = SearchListViewAdapter(activity, getDictionaryList())
         lvResult.adapter = searchCustomAdapter
         return mainframe
-    }
-
-    private fun setDictionaryList(): MutableList<String?> {
-        val dictionaryList = getDictionaryList()
-        val showListView = mutableListOf<String?>()
-        for (i in 0 until dictionaryList.size) {
-            val listData = dictionaryList[i]
-            showListView.add(i, listData.name)
-        }
-        return showListView
     }
 
     private fun getDictionaryList(): MutableList<DictionaryClass> {
@@ -83,18 +72,19 @@ class SearchFragment : Fragment() {
     }
     private fun filter(newText: String?) {
         if (newText?.isNotEmpty()!!) {
-            getDictionaryList.clear()
+            showSearchedResult.clear()
             var search = newText.toLowerCase()
-            for (it in setDictionaryList()) {
-                if (it?.toLowerCase()?.contains(search)!!) {
-                    getDictionaryList.add(it)
+            for (it in getDictionaryList()) {
+                if (it?.name.toLowerCase()?.contains(search)!!) {
+                    showSearchedResult.add(it)
                 }
             }
-            searchCustomAdapter.notifyDataSetChanged()
+            searchCustomAdapter= SearchListViewAdapter(activity,showSearchedResult)
 
+//            searchCustomAdapter.notifyDataSetChanged()
         } else {
-            getDictionaryList.clear()
-            getDictionaryList.addAll(setDictionaryList())
+            showSearchedResult.clear()
+            showSearchedResult.addAll(getDictionaryList())
             searchCustomAdapter.notifyDataSetChanged()
         }
     }
@@ -123,8 +113,6 @@ class SearchFragment : Fragment() {
 
                 override fun onQueryTextSubmit(query: String): Boolean {
                     searchHistory.add(query)
-
-                    //store in share preferences
                     set.addAll(searchHistory)
                     editor?.putStringSet("My_HISTORY", set)
                     editor?.apply()
