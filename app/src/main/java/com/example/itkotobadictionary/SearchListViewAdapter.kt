@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.FragmentActivity
+import java.util.*
 
 class SearchListViewAdapter(
     private val activity: FragmentActivity?,
@@ -14,6 +15,7 @@ class SearchListViewAdapter(
 ) : BaseAdapter() {
     private val inflater =
         activity?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private lateinit var tempList: MutableList<DictionaryClass>
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val layoutView = inflater.inflate(R.layout.sub_list_search_fragment, parent, false)
         val txtHiragana = layoutView?.findViewById<TextView>(R.id.txt_search_hiragana)
@@ -59,6 +61,32 @@ class SearchListViewAdapter(
         })
         return layoutView
     }
+    fun getDictionaryItem(): MutableList<DictionaryClass> {
+        val dataAccess = activity?.applicationContext?.let {
+            DatabaseAccess.getInstance(
+                it
+            )
+        }!!
+        dataAccess.open()
+        return dataAccess.getDictionaries
+    }
+    fun filter(text:String){
+        val textResult = text.toLowerCase(Locale.getDefault())
+        dataSource.clear()
+        val getDictionaryList =getDictionaryItem()
+        if(textResult.length==0){
+            dataSource.addAll(getDictionaryList)
+        }
+        else{
+            for(i in 0..getDictionaryList.size-1){
+                if(getDictionaryList.get(i).name.toLowerCase(Locale.getDefault()).contains(text)){
+                    dataSource.add(getDictionaryList.get(i))
+                }
+            }
+        }
+        notifyDataSetChanged()
+    }
+
     private fun updateResults(result:MutableList<DictionaryClass> ){
         dataSource =result
         notifyDataSetChanged()
